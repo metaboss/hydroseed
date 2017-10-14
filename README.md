@@ -21,10 +21,10 @@ hydroseed is written in C#.
 The win32 release requires .NET Framework 4.5.2 and runs on Windows.
 
 From a command prompt run:
-`hydroseed.exe` or `hydroseed.exe \<name of seed file\>
+`hydroseed.exe` or `hydroseed.exe <name of seed file>`
 
 ### hydroseed-portable
 The portable release requires .NET Core 2.0 and runs on all Linux, Windows, and OSX.
 
 From a command prompt run:
-`dotnet hydroseed.dll` or `dotnet hydroseed.dll \<name of seed file\>`
+`dotnet hydroseed.dll` or `dotnet hydroseed.dll <name of seed file>`
