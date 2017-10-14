@@ -8,7 +8,12 @@ namespace hydroseed
     {
         static void Main(string[] args)
         {
-            if (File.Exists("seedsources.txt"))
+            SeedDB seedDB = new SeedDB();
+            if (args.Length > 0 && File.Exists(args[0]))
+            {
+                seedDB = new SeedDB(File.ReadAllBytes(args[0]));
+            }
+            else if (File.Exists("seedsources.txt"))
             {
                 var sources = File.ReadAllLines("seedsources.txt");
 
@@ -19,16 +24,7 @@ namespace hydroseed
 
                     try
                     {
-                        var seedFile = client.DownloadData(url);
-                        SeedDB seedDB = new SeedDB(seedFile);
-                        var dir = Directory.CreateDirectory("fbi" + Path.DirectorySeparatorChar + "seed");
-
-
-                        foreach (var seed in seedDB.Seeds)
-                        {
-                            File.WriteAllBytes(dir.FullName + Path.DirectorySeparatorChar + seed.TitleId + ".dat", seed.SeedValue);
-                        }
-                        Console.WriteLine("Created dats for {0} titles.", seedDB.Count);
+                        seedDB = new SeedDB(client.DownloadData(url));
                     }
                     catch (WebException we)
                     {
@@ -38,7 +34,17 @@ namespace hydroseed
             }
             else
             {
-                Console.WriteLine("Required file seedsources.txt does not exist. Create a file with url sources, one per line.");
+                Console.WriteLine("No input file or seedsources.txt file found.");
+            }
+            if (seedDB.Count > 0)
+            {
+                var dir = Directory.CreateDirectory("fbi" + Path.DirectorySeparatorChar + "seed");
+
+                foreach (var seed in seedDB.Seeds)
+                {
+                    File.WriteAllBytes(dir.FullName + Path.DirectorySeparatorChar + seed.TitleId + ".dat", seed.SeedValue);
+                }
+                Console.WriteLine("Created dats for {0} titles.", seedDB.Count);
             }
         }
     }

@@ -9,6 +9,7 @@ namespace hydroseed
 
         public List<Seed> Seeds { get; set; } = new List<Seed>();
 
+        public SeedDB(){}
         public SeedDB(byte[] seedData)
         {
 
