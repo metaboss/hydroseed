@@ -12,7 +12,9 @@ namespace hydroseed
         public SeedDB(){}
         public SeedDB(byte[] seedData)
         {
-
+            this.Load(seedData);
+        }
+        public int Load(byte[] seedData){
             Count = BitConverter.ToInt32(seedData, 0);
 
             for (int i = 0; i < Count; i++)
@@ -34,6 +36,7 @@ namespace hydroseed
                 );
 
             }
+            return 0;
         }
 
     }
