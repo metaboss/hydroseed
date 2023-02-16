@@ -15,16 +15,19 @@ hydroseed is very simple - it downloads seeddb.bin files from urls listed in a t
 6. FBI will now import seeds from your sd card when installing CIAs or selecting import.
 
 ## releases
-hydroseed is written in C#.
+hydroseed is written in C# using .NET SDK 6.0. 
 
-### hydroseed-win32
-The win32 release requires .NET Framework 4.5.2 and runs on Windows.
+The easiest way to run this is to download the latest release. The executables have no dependencies to run.
 
-From a command prompt run:
-`hydroseed.exe` or `hydroseed.exe <name of seed file>`
+Alternatively, you can install the .NET 6.0 runtime or SDK, download the source, and run the code executing ```dotnet run``` in the base folder.
 
-### hydroseed-portable
-The portable release requires .NET Core 2.0 and runs on all Linux, Windows, and OSX.
-
-From a command prompt run:
-`dotnet hydroseed.dll` or `dotnet hydroseed.dll <name of seed file>`
+To recreate the release executables, install the .NET 6.0 SDK, download the source, and run the following commands from a command prompt in the root directory:
+ 
+Linux:
+```
+dotnet publish -r linux-x64
+```
+Windows:
+```
+dotnet publish -r win-x64
+```

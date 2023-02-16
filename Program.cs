@@ -2,12 +2,14 @@
 using System.IO;
 using System.Net;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace hydroseed
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             SeedDB seedDB = new SeedDB();
             List<SeedDB> dbs = new List<SeedDB>();
@@ -26,11 +28,12 @@ namespace hydroseed
                 var sources = File.ReadAllLines("seedsources.txt");
                 foreach (string url in sources)
                 {
-                    WebClient client = new WebClient();
+                    HttpClient client = new HttpClient();
 
                     try
                     {
-                        seedDB.Load(client.DownloadData(url));
+                        byte[] seeds = await client.GetByteArrayAsync(url);
+                        seedDB.Load(seeds);
                     }
                     catch (WebException we)
                     {
@@ -50,6 +53,7 @@ namespace hydroseed
                     {
                         File.WriteAllBytes(dir.FullName + Path.DirectorySeparatorChar + seed.TitleId + ".dat", seed.SeedValue);
                     }
+                    Console.WriteLine(Environment.OSVersion);
                     Console.WriteLine("Created dats for {0} titles.", seedDB.Count);
                 }
             

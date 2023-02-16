@@ -2,10 +2,14 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-    <DebugType Condition=" '$(Configuration)' == 'Release' ">None</DebugType>
+    <TargetFramework>net6.0</TargetFramework>
+    <Rollforward>Major</Rollforward>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <PublishTrimmed>true</PublishTrimmed>
+    <DebugType>embedded</DebugType>
+    <PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
-
 
   <ItemGroup>
     <None Include="seedsources.txt" CopyToOutputDirectory="Always" />
